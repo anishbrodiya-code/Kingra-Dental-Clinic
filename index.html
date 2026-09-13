@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kingra Dental Care — Patient Management</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="./logo.png" type="image/png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <header class="app-header">
+      <div class="header-glow" aria-hidden="true"></div>
+      <div class="logo-container">
+        <div class="logo-mark">
+          <img src="./logo.png"
+               srcset="./logo.png 1x, ./logo.png 2x"
+               width="72"
+               height="72"
+               alt="Kingra Dental Care logo — gold and navy tooth mark">
+        </div>
+        <div class="brand-divider" aria-hidden="true"></div>
+        <div class="brand-copy">
+          <div class="brand-name">KINGRA</div>
+          <div class="brand-sub"><span></span> DENTAL CARE <span></span></div>
+          <div class="brand-tagline">Healthy Smile. Confident You.</div>
+        </div>
+      </div>
+      <button type="button" class="icon-btn menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="headerDrawer">☰</button>
+      <div class="header-actions" id="headerDrawer">
+        <button type="button" class="btn btn-ghost" id="clinicInfoBtn">Clinic Info</button>
+        <button type="button" class="btn btn-ghost" id="printBtn">Print Today's Schedule</button>
+        <button type="button" class="btn btn-ghost btn-danger-ghost" id="clearDataBtn">Clear All Data</button>
+        <button type="button" class="btn btn-gold" id="newPatientFocusBtn">New Patient</button>
+      </div>
+    </header>
+    <div class="drawer-backdrop" id="drawerBackdrop" hidden></div>
+
+    <div class="main-grid">
+      <section class="card is-open" id="patientFormCard" data-collapse>
+        <div class="card-title">
+          <button type="button" class="collapse-toggle" data-collapse-btn aria-expanded="true">
+            <span>Patient Management</span>
+            <span class="chevron" aria-hidden="true"></span>
+          </button>
+          <span class="card-subtitle" id="formModeLabel">Add / Edit Form</span>
+        </div>
+        <div class="card-body">
+          <form id="patientForm" novalidate>
+            <div class="form-group">
+              <label for="patientId">Patient ID</label>
+              <input type="text" id="patientId" class="input readonly" readonly tabindex="-1">
+            </div>
+            <div class="form-group">
+              <label for="fullName">Full Name</label>
+              <input type="text" id="fullName" class="input" required autocomplete="name" placeholder="Patient full name">
+              <p class="field-error" id="nameError" hidden>Name is required.</p>
+            </div>
+            <div class="form-group">
+              <label for="contact">Contact Number</label>
+              <input type="tel" id="contact" class="input" required inputmode="numeric" maxlength="10" placeholder="10-digit mobile number">
+              <p class="field-error" id="phoneError" hidden>Enter a valid 10-digit number.</p>
+            </div>
+            <div class="form-group">
+              <label for="treatment">Treatment Category</label>
+              <select id="treatment" class="input" required>
+                <option value="">Select treatment</option>
+                <option>Root Canal Treatment</option>
+                <option>Dental Crowns &amp; Caps</option>
+                <option>Cosmetic Dentistry</option>
+                <option>Orthodontic Treatment</option>
+                <option>Dental Implants</option>
+                <option>General Consultation</option>
+              </select>
+              <p class="field-error" id="treatmentError" hidden>Select a treatment category.</p>
+            </div>
+            <div class="form-group">
+              <label for="notes">Address / Notes</label>
+              <textarea id="notes" class="input textarea" rows="3" placeholder="Address, clinical notes, or follow-up remarks"></textarea>
+            </div>
+
+            <div class="upload-row">
+              <div class="upload-drop" data-kind="scan">
+                <input type="file" id="scanInput" accept="image/*" multiple hidden>
+                <strong>Upload Scan</strong>
+                <span>Drag X-ray / OPG / intraoral here</span>
+                <button type="button" class="btn btn-ghost upload-pick" data-pick="scanInput">Choose file</button>
+              </div>
+              <div class="upload-drop" data-kind="photo">
+                <input type="file" id="photoInput" accept="image/*" multiple hidden>
+                <strong>Upload Photo</strong>
+                <span>Drag clinical or extraoral photo here</span>
+                <button type="button" class="btn btn-ghost upload-pick" data-pick="photoInput">Choose file</button>
+              </div>
+            </div>
+            <div class="thumb-grid" id="formThumbs"></div>
+            <p class="hint">Images are compressed before saving with the Patient ID in this browser.</p>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-navy" id="savePatientBtn">Save Patient</button>
+              <button type="button" class="btn btn-ghost" id="resetFormBtn">Reset</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section class="card is-open" data-collapse>
+        <div class="card-title">
+          <button type="button" class="collapse-toggle" data-collapse-btn aria-expanded="true">
+            <span>List of Patients</span>
+            <span class="chevron" aria-hidden="true"></span>
+          </button>
+          <span class="count-pill" id="patientCount">0</span>
+        </div>
+        <div class="card-body">
+          <div class="search-wrap">
+            <input type="search" id="searchInput" class="input" placeholder="Search by name, phone, or ID">
+          </div>
+
+          <div class="filter-tabs" role="tablist" aria-label="Patient status filters">
+            <button type="button" class="filter-tab is-active" data-filter="all">All</button>
+            <button type="button" class="filter-tab" data-filter="missed"><span class="dot missed"></span> Missed</button>
+            <button type="button" class="filter-tab" data-filter="resolved"><span class="dot resolved"></span> Resolved</button>
+            <button type="button" class="filter-tab" data-filter="upcoming"><span class="dot upcoming"></span> Upcoming</button>
+          </div>
+
+          <div class="table-container" id="patientList"></div>
+        </div>
+      </section>
+    </div>
+
+    <div class="bottom-grid">
+      <section class="card is-open" id="scheduleCard" data-collapse>
+        <div class="card-title">
+          <button type="button" class="collapse-toggle" data-collapse-btn aria-expanded="true">
+            <span>Today’s Schedule View</span>
+            <span class="chevron" aria-hidden="true"></span>
+          </button>
+          <div class="card-title-actions">
+            <span class="card-subtitle" id="scheduleDateLabel"></span>
+            <button type="button" class="btn btn-ghost btn-compact no-print" id="printScheduleBtn">Print Today's Schedule</button>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="muted slot-hint">Tap an available slot to book. Occupied slots cannot be double-booked.</p>
+          <div class="empty empty-card" id="scheduleEmpty" hidden>No appointments scheduled for this date.</div>
+          <div class="schedule-list" id="scheduleList"></div>
+        </div>
+      </section>
+
+      <section class="card is-open" data-collapse>
+        <div class="card-title">
+          <button type="button" class="collapse-toggle" data-collapse-btn aria-expanded="true">
+            <span>Calendar</span>
+            <span class="chevron" aria-hidden="true"></span>
+          </button>
+          <span class="card-subtitle">Status badges by day</span>
+        </div>
+        <div class="card-body">
+          <div class="cal-nav">
+            <button type="button" class="icon-btn" id="prevMonth" aria-label="Previous month">‹</button>
+            <h3 id="calTitle"></h3>
+            <button type="button" class="icon-btn" id="nextMonth" aria-label="Next month">›</button>
+          </div>
+          <div class="cal-weekdays">
+            <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+          </div>
+          <div class="calendar-grid" id="calendarGrid"></div>
+          <div class="cal-legend">
+            <span><i class="dot missed"></i> Missed</span>
+            <span><i class="dot resolved"></i> Resolved</span>
+            <span><i class="dot upcoming"></i> Upcoming</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="card is-open" id="bookCard" data-collapse>
+        <div class="card-title">
+          <button type="button" class="collapse-toggle" data-collapse-btn aria-expanded="true">
+            <span>Appointment</span>
+            <span class="chevron" aria-hidden="true"></span>
+          </button>
+        </div>
+        <div class="card-body">
+          <p class="muted">Schedule new visits or follow-ups.</p>
+          <form id="bookForm">
+            <div class="form-group">
+              <label for="bookPatientSearch">Select Patient</label>
+              <input type="text" id="bookPatientSearch" class="input" placeholder="Search existing patient" autocomplete="off">
+              <input type="hidden" id="bookPatientId">
+              <div class="suggest" id="patientSuggest" hidden></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="bookDate">Date</label>
+                <input type="date" id="bookDate" class="input" required>
+              </div>
+              <div class="form-group">
+                <label for="bookTime">Time Slot</label>
+                <select id="bookTime" class="input" required></select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="bookTreatment">Treatment Type</label>
+              <select id="bookTreatment" class="input" required>
+                <option value="">Select treatment</option>
+                <option>Root Canal Treatment</option>
+                <option>Dental Crowns &amp; Caps</option>
+                <option>Cosmetic Dentistry</option>
+                <option>Orthodontic Treatment</option>
+                <option>Dental Implants</option>
+                <option>General Consultation</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-gold btn-block">Book Appointment</button>
+          </form>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="clinicModal" hidden>
+    <div class="modal clinic-modal" role="dialog" aria-modal="true" aria-labelledby="clinicModalTitle" tabindex="-1">
+      <button type="button" class="modal-close" data-close aria-label="Close">×</button>
+      <div class="clinic-hero">
+        <img src="./logo.png" width="88" height="88" alt="" class="clinic-logo">
+        <div>
+          <p class="clinic-kicker">Kingra Dental Care</p>
+          <h2 id="clinicModalTitle" class="serif">Dr. Shubham Kingra</h2>
+          <p class="gold-line">BDS, MDS — Conservative Dentistry &amp; Endodontics</p>
+        </div>
+      </div>
+      <ul class="info-list">
+        <li>
+          <strong>Doctor Name &amp; Qualifications</strong>
+          Dr. Shubham Kingra (BDS, MDS - Conservative Dentistry &amp; Endodontics)
+        </li>
+        <li>
+          <strong>Phone</strong>
+          <a href="tel:+919817819415">+91 98178-19415</a>
+        </li>
+        <li>
+          <strong>Address</strong>
+          Opposite Bharu Gate, Circular Road, Gidderbaha
+        </li>
+        <li>
+          <strong>Timings</strong>
+          MON - SAT: 9:30 AM - 8:00 PM
+          <em>Sunday by appointment</em>
+        </li>
+      </ul>
+      <button type="button" class="btn btn-ghost btn-danger-ghost btn-block" id="clearDataModalBtn">Clear All Data</button>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="statusModal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="statusModalTitle" tabindex="-1">
+      <button type="button" class="modal-close" data-close aria-label="Close">×</button>
+      <h2 id="statusModalTitle">Change Status</h2>
+      <p class="muted" id="statusPatientName"></p>
+      <div class="status-choices">
+        <button type="button" class="status-choice missed" data-status="missed">Missed</button>
+        <button type="button" class="status-choice resolved" data-status="resolved">Resolved</button>
+        <button type="button" class="status-choice upcoming" data-status="upcoming">Upcoming</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="filesModal" hidden>
+    <div class="modal modal-wide" role="dialog" aria-modal="true" aria-labelledby="filesModalTitle" tabindex="-1">
+      <button type="button" class="modal-close" data-close aria-label="Close">×</button>
+      <h2 id="filesModalTitle">Attached Files</h2>
+      <div class="files-grid" id="filesGrid"></div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="previewModal" hidden>
+    <div class="modal modal-wide preview-modal" role="dialog" aria-modal="true" aria-labelledby="previewTitle" tabindex="-1">
+      <button type="button" class="modal-close" data-close aria-label="Close preview">×</button>
+      <h2 id="previewTitle">Image preview</h2>
+      <img id="previewImage" alt="Enlarged attachment">
+    </div>
+  </div>
+
+  <div class="print-sheet" id="printSheet" hidden>
+    <header class="print-brand">
+      <img src="./logo.png" width="72" height="72" alt="Kingra Dental Care logo">
+      <div>
+        <p class="print-kicker">Kingra Dental Care</p>
+        <h1>Daily Appointment Schedule</h1>
+        <p class="print-doctor">Dr. Shubham Kingra · BDS, MDS — Conservative Dentistry &amp; Endodontics</p>
+        <p class="print-contact">Opposite Bharu Gate, Circular Road, Gidderbaha · +91 98178-19415</p>
+        <p class="print-contact">MON–SAT: 9:30 AM – 8:00 PM · Sunday by appointment</p>
+      </div>
+    </header>
+    <p class="print-date" id="printDateLabel"></p>
+    <table class="print-table">
+      <thead>
+        <tr>
+          <th>Time Slot</th>
+          <th>Patient ID</th>
+          <th>Patient Name</th>
+          <th>Phone Number</th>
+          <th>Treatment Category</th>
+          <th>Notes / Status</th>
+        </tr>
+      </thead>
+      <tbody id="printTableBody"></tbody>
+    </table>
+  </div>
+
+  <div class="toast" id="toast" hidden role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
