@@ -1,0 +1,188 @@
+/* KDC V2.6 — light/dark themes and lightweight one-time scroll reveal */
+:root{--theme-bg:#f7faf7;--theme-surface:#fff;--theme-ink:#1d3443;--theme-muted:#647b7d;--theme-border:#dce9e5;--theme-soft:#edf7f2;--theme-primary:#176978}
+.theme-toggle{display:inline-flex;align-items:center;gap:7px;justify-content:center;border:1px solid var(--theme-border);background:var(--theme-surface);color:var(--theme-ink);padding:9px 12px;border-radius:999px;white-space:nowrap;font:700 12px 'DM Sans',sans-serif;cursor:pointer;transition:background-color .18s,color .18s,border-color .18s,transform .18s}
+.theme-toggle:hover{transform:translateY(-2px);border-color:#4fbec4}.theme-toggle:focus-visible{outline:3px solid #7ac6b7;outline-offset:2px}
+.public-utilities{display:flex;align-items:center;gap:8px}.login-theme{position:fixed;top:20px;right:22px;z-index:60}
+/* reveal only elements the observer has registered. Avoid perpetual motion and blur filters */
+@media(prefers-reduced-motion:no-preference){html.motion-ready [data-reveal]:not(.is-visible){opacity:0;transform:translate3d(0,18px,0)}html.motion-ready [data-reveal]{transition:opacity .44s ease-out,transform .44s cubic-bezier(.2,.7,.2,1);transition-delay:var(--reveal-delay,0ms)}html.motion-ready [data-reveal].is-visible{opacity:1;transform:translate3d(0,0,0)}.interactive-service:hover{transform:translateY(-5px)!important;box-shadow:0 15px 30px rgba(17,83,74,.13)!important}.panel:hover,.stat:hover,.quick-card:hover{border-color:#8fc9b7;box-shadow:0 7px 22px rgba(31,76,70,.07);transition:border-color .2s,box-shadow .2s}.btn:hover:not(:disabled){transform:translateY(-2px)!important;box-shadow:0 5px 15px rgba(8,57,62,.12)}}
+@media(prefers-reduced-motion:reduce){html [data-reveal]{opacity:1!important;transform:none!important;transition:none!important}.theme-toggle:hover{transform:none}}
+/* Page-wide dark surfaces. Original branding preserved. */
+html[data-theme=dark]{--theme-bg:#101b1c;--theme-surface:#1a2a2d;--theme-ink:#edf8f4;--theme-muted:#a9c0bf;--theme-border:#385356;--theme-soft:#22393b;--theme-primary:#77d6bf;background:#101b1c;color-scheme:dark}
+html[data-theme=dark] body,html[data-theme=dark] #root,html[data-theme=dark] .workspace{background:#101b1c;color:var(--theme-ink)}
+html[data-theme=dark] .hero{background:radial-gradient(ellipse at 10% 10%,rgba(108,149,26,.14),transparent 48%),radial-gradient(ellipse at 90% 35%,rgba(66,177,179,.2),transparent 45%),#122426;color:var(--theme-ink)}
+html[data-theme=dark] .public-nav,html[data-theme=dark] .public-links,html[data-theme=dark] .sidebar,html[data-theme=dark] .topbar,html[data-theme=dark] .mobile-nav{background:#172729!important;border-color:var(--theme-border)!important;color:var(--theme-ink)}
+html[data-theme=dark] .main-area,html[data-theme=dark] .content,html[data-theme=dark] .auth-page{background:#101b1c;color:var(--theme-ink)}
+html[data-theme=dark] .hero-preview,html[data-theme=dark] .visit-float,html[data-theme=dark] .contact-card,html[data-theme=dark] .service-card,html[data-theme=dark] .stat,html[data-theme=dark] .panel,html[data-theme=dark] .quick-card,html[data-theme=dark] .auth-card,html[data-theme=dark] .document-dialog,html[data-theme=dark] .side-bottom{background:#1a2a2d!important;border-color:var(--theme-border)!important;color:var(--theme-ink)!important;box-shadow:none}
+html[data-theme=dark] .alt,html[data-theme=dark] .service-more,html[data-theme=dark] .preview-row,html[data-theme=dark] .file-row,html[data-theme=dark] .patient-item,html[data-theme=dark] .search-field,html[data-theme=dark] .upload-form,html[data-theme=dark] .slot,html[data-theme=dark] .date-tile,html[data-theme=dark] .notification.unread,html[data-theme=dark] .empty-icon,html[data-theme=dark] .avatar,html[data-theme=dark] .count,html[data-theme=dark] .slot-placeholder{background:#213638!important;border-color:var(--theme-border)!important;color:var(--theme-ink)!important}
+html[data-theme=dark] .patient-item.active,html[data-theme=dark] .nav-item.active,html[data-theme=dark] .slot.selected{background:#285b58!important;color:#f5fffc!important}
+html[data-theme=dark] .nav-item:hover,html[data-theme=dark] .patient-item:hover{background:#284346!important}
+html[data-theme=dark] .brand strong,html[data-theme=dark] h1,html[data-theme=dark] h2,html[data-theme=dark] h3,html[data-theme=dark] .row-title,html[data-theme=dark] .panel-head h2,html[data-theme=dark] .page-heading h1,html[data-theme=dark] .stat strong,html[data-theme=dark] .preview-title,html[data-theme=dark] .contact-card h3{color:var(--theme-ink)!important}
+html[data-theme=dark] p,html[data-theme=dark] .muted,html[data-theme=dark] .lead,html[data-theme=dark] .section-desc,html[data-theme=dark] .appointment-detail p,html[data-theme=dark] .file-info p,html[data-theme=dark] .hero-trust,html[data-theme=dark] .stat-top,html[data-theme=dark] .side-label,html[data-theme=dark] .service-card p{color:var(--theme-muted)}
+html[data-theme=dark] a:not(.btn),html[data-theme=dark] .text-link,html[data-theme=dark] .section-kicker{color:#80dec9}
+html[data-theme=dark] input,html[data-theme=dark] select,html[data-theme=dark] textarea{background:#192f32!important;color:var(--theme-ink)!important;border-color:var(--theme-border)!important}
+html[data-theme=dark] input::placeholder,html[data-theme=dark] textarea::placeholder{color:#a5b9b8}
+html[data-theme=dark] .btn.light,html[data-theme=dark] .btn.outline,html[data-theme=dark] .btn.subtle,html[data-theme=dark] .mini-actions button,html[data-theme=dark] .public-menu-toggle{background:#294346;color:#edfffa;border-color:#4a6e70}
+html[data-theme=dark] .btn.primary{background:#286e63;color:white}
+html[data-theme=dark] .document-preview{background:#101e20}
+html[data-theme=dark] .pill.pending{background:#4b3b25;color:#ffe5a2}html[data-theme=dark] .pill.confirmed{background:#1d473d;color:#c0ffe2}html[data-theme=dark] .pill.declined{background:#523235;color:#ffd2d1}
+html[data-theme=dark] .appointment-row,html[data-theme=dark] .document-dialog header,html[data-theme=dark] .document-dialog footer{border-color:var(--theme-border)!important}
+@media(max-width:760px){.theme-toggle span{display:none}.theme-toggle{width:38px;height:38px;padding:0}.public-utilities{margin-left:auto;margin-right:8px}.public-nav .public-links{background:#fff}.login-theme{top:12px;right:12px}html[data-theme=dark] .public-nav .public-links{background:#172729!important}}
+
+/* KDC V2.7 — right-corner theme control, gentle hero motion and visible reveal */
+.public-nav{display:flex;align-items:center;gap:20px}
+.public-nav>.brand{margin-right:auto}
+.public-links{order:1}
+.public-utilities{order:2;flex-shrink:0;margin-left:8px}
+.public-utilities .theme-toggle{min-width:88px}
+/* Transform-only animations: no blur, filters or expensive box-shadow keyframes. */
+@keyframes kdcHeroDrift{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(0,-7px,0)}}
+@keyframes kdcFloatDrift{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(0,5px,0)}}
+@media (prefers-reduced-motion:no-preference){
+ .hero-preview{animation:kdcHeroDrift 7s ease-in-out infinite!important;transition:transform .25s ease!important}
+ .visit-float{animation:kdcFloatDrift 6s ease-in-out infinite!important;transition:transform .25s ease!important}
+ .hero-visual:before{animation:none!important}
+ html.motion-ready [data-reveal]:not(.is-visible){opacity:0;transform:translate3d(0,22px,0)}
+ html.motion-ready [data-reveal].is-visible{opacity:1;transform:translate3d(0,0,0)}
+}
+@media (max-width:760px){
+ .public-utilities{margin-left:auto;margin-right:0;order:2}
+ .public-links{order:3}
+ .public-utilities .theme-toggle{min-width:38px}
+ .hero-preview{animation:kdcHeroDrift 7s ease-in-out infinite!important}
+ .visit-float{animation:kdcFloatDrift 6s ease-in-out infinite!important}
+}
+@media (prefers-reduced-motion:reduce){
+ .hero-preview,.visit-float,.hero-visual:before{animation:none!important;transform:none!important}
+ html [data-reveal]{opacity:1!important;transform:none!important}
+}
+
+.topbar .top-user{margin-left:auto}.topbar .theme-toggle{flex-shrink:0}
+
+/* KDC V2.8: high-contrast hero preview and decorative orbit restored. */
+html[data-theme="dark"] .hero-preview .preview-header strong{color:#effcf7!important}
+html[data-theme="dark"] .hero-preview .preview-header small{color:#bed4d0!important}
+html[data-theme="dark"] .hero-preview .preview-tag{color:#94e6d4!important}
+html[data-theme="dark"] .hero-preview .preview-row{color:#d1e3df!important;border-top-color:#3a5554!important}
+html[data-theme="dark"] .hero-preview .preview-row svg{color:#82d9c7!important}
+html[data-theme="dark"] .hero-preview .preview-footer{color:#d6ece7!important;background:#294442!important}
+html[data-theme="dark"] .hero-preview .preview-icon{color:#a4eddb!important;background:#2b4b48!important}
+html[data-theme="dark"] .visit-float strong{color:#f0fcf8!important}
+html[data-theme="dark"] .visit-float small{color:#c1d6d2!important}
+/* Two lightweight rings drawn behind the static preview; spin only rotates the ring's border. */
+.hero-visual{isolation:isolate}
+.hero-visual::before,.hero-visual::after{content:"";display:block!important;position:absolute;pointer-events:none;z-index:-1;box-sizing:border-box;border-radius:50%;left:50%;top:50%;}
+.hero-visual::before{width:min(410px,92%);aspect-ratio:1;border:2px dashed rgba(30,150,136,.37);background:transparent;transform:translate(-50%,-50%) rotate(0deg);opacity:1;}
+.hero-visual::after{width:min(320px,78%);aspect-ratio:1;border:1px solid rgba(124,177,56,.37);box-shadow:0 0 0 27px rgba(55,178,150,.045);transform:translate(-50%,-50%);opacity:1;}
+html[data-theme="dark"] .hero-visual::before{border-color:rgba(114,227,204,.48)}
+html[data-theme="dark"] .hero-visual::after{border-color:rgba(197,222,92,.37);box-shadow:0 0 0 27px rgba(97,200,178,.045)}
+@keyframes kdcOrbitSpin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+@media (prefers-reduced-motion:no-preference){.hero-visual::before{animation:kdcOrbitSpin 38s linear infinite!important}}
+@media (prefers-reduced-motion:reduce){.hero-visual::before{animation:none!important;transform:translate(-50%,-50%)!important}}
+@media(max-width:760px){.hero-visual::before{width:290px}.hero-visual::after{width:230px}}
+
+/* KDC V2.9 — polished hero composition: faded orbit, spacing and legibility. */
+.hero-visual {
+  isolation:isolate;
+  overflow:visible;
+  padding:58px 24px 86px;
+  min-height:530px;
+}
+.hero-visual .hero-preview{
+  position:relative;
+  z-index:2;
+  width:min(100%,420px);
+  box-shadow:0 22px 55px rgba(11,61,63,.14);
+}
+.hero-visual .visit-float{
+  position:absolute;
+  z-index:3;
+  right:10px;
+  bottom:28px;
+  width:max-content;
+  max-width:min(310px,83%);
+  border:1px solid rgba(85,163,145,.23);
+  background:rgba(250,254,251,.98);
+  box-shadow:0 14px 34px rgba(17,69,63,.14);
+}
+/* The circular artwork uses a thin, fading conic stroke rather than overlapping hard rings. */
+.hero-visual::before,
+.hero-visual::after{
+  content:"";
+  display:block!important;
+  position:absolute;
+  left:50%;top:46%;
+  pointer-events:none;
+  border-radius:50%;
+  box-sizing:border-box;
+}
+.hero-visual::before{
+  z-index:0;
+  width:min(460px,100%);
+  aspect-ratio:1;
+  border:0!important;
+  opacity:.8;
+  background:conic-gradient(from 10deg,transparent 0deg,rgba(58,177,165,.28) 45deg,rgba(55,142,127,.6) 125deg,transparent 205deg,rgba(150,181,41,.25) 290deg,transparent 360deg)!important;
+  -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#000 calc(100% - 1px));
+  mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#000 calc(100% - 1px));
+  box-shadow:none!important;
+  transform:translate(-50%,-50%);
+}
+.hero-visual::after{
+  z-index:0;
+  width:min(390px,86%);
+  aspect-ratio:1;
+  border:0!important;
+  background:radial-gradient(circle,rgba(75,186,179,.12),rgba(159,192,67,.055) 48%,transparent 69%)!important;
+  opacity:.75;
+  box-shadow:none!important;
+  transform:translate(-50%,-50%);
+}
+@keyframes kdcOrbitSoftSpin{from{transform:translate(-50%,-50%) rotate(0deg)}to{transform:translate(-50%,-50%) rotate(360deg)}}
+@media(prefers-reduced-motion:no-preference){
+  .hero-visual::before{animation:kdcOrbitSoftSpin 42s linear infinite!important}
+}
+html[data-theme="dark"] .hero-visual .visit-float{background:#203739!important;border-color:#48645e!important}
+html[data-theme="dark"] .hero-visual .hero-preview{box-shadow:0 24px 60px rgba(0,0,0,.26)!important}
+html[data-theme="dark"] .hero-visual::before{background:conic-gradient(from 10deg,transparent,rgba(118,229,207,.45),transparent 62%,rgba(216,232,122,.35),transparent)!important}
+html[data-theme="dark"] .hero-visual::after{background:radial-gradient(circle,rgba(57,157,147,.15),transparent 70%)!important}
+html[data-theme="dark"] .preview-title{color:#f0f9f6!important}
+html[data-theme="dark"] .hero-visual .preview-header strong{color:#f0f9f6!important}
+html[data-theme="dark"] .hero-visual .preview-header small{color:#c9dfdb!important}
+@media(max-width:760px){
+  .hero-visual{min-height:445px;padding:42px 12px 76px}
+  .hero-visual::before{width:min(360px,96%)}
+  .hero-visual::after{width:min(300px,83%)}
+  .hero-visual .visit-float{bottom:10px;right:10px;max-width:85%;padding:12px 14px}
+}
+@media(max-width:430px){
+  .hero-visual{min-height:415px;padding:38px 5px 80px}
+  .hero-visual .hero-preview{padding:20px}
+  .hero-visual .visit-float{bottom:8px;right:6px;max-width:88%;font-size:.78rem}
+}
+@media(prefers-reduced-motion:reduce){
+ .hero-visual::before,.hero-visual::after{animation:none!important}
+ .hero-preview,.visit-float{animation:none!important}
+}
+
+/* V2.10: consistent card interactions; expanded information never changes grid cell height */
+.service-grid .interactive-service{transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease!important;transition-delay:0ms!important;will-change:auto;align-self:stretch;min-height:222px;display:flex;flex-direction:column;align-items:flex-start}
+.service-grid .interactive-service .service-expand{margin-top:auto;padding-top:14px}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){.service-grid .interactive-service:hover{transform:translateY(-4px)!important;box-shadow:0 13px 28px rgba(17,83,74,.13)!important}}
+.service-detail-panel{display:grid;grid-template-columns:1fr auto;gap:16px;margin-top:18px;padding:22px 24px;border:1px solid rgba(71,149,128,.22);background:linear-gradient(125deg,rgba(224,246,238,.8),rgba(247,249,229,.75));border-radius:16px;color:var(--theme-ink,#193b39);animation:serviceDetailsIn .2s ease-out both}
+.service-detail-panel.is-empty{display:none}
+.service-detail-panel h3{margin:4px 0 8px;font-size:1.1rem}
+.service-detail-panel p{max-width:75ch;margin:0;line-height:1.65}
+.service-detail-label{font-size:.66rem;letter-spacing:.12em;font-weight:800;color:#176b60}
+.service-detail-close{border:1px solid currentColor;background:transparent;opacity:.7;border-radius:9px;display:grid;place-items:center;width:36px;height:36px;cursor:pointer;color:inherit}
+.service-detail-close:hover{opacity:1}
+@keyframes serviceDetailsIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+html[data-theme=dark] .service-detail-panel{background:linear-gradient(125deg,#1e3935,#28352b);border-color:#42695f;color:#e5f7f2}
+html[data-theme=dark] .service-detail-label{color:#93d9c1}
+@media(max-width:680px){.service-detail-panel{padding:18px}.service-grid .interactive-service{min-height:190px}}
+@media(prefers-reduced-motion:reduce){.service-detail-panel{animation:none!important}.service-grid .interactive-service{transition:none!important}}
+
+/* KDC V2.11 onboarding and account screens */
+.onboarding-layout{min-height:100vh;display:grid;grid-template-columns:minmax(270px,1fr) minmax(340px,480px);align-items:center;gap:clamp(20px,6vw,95px);max-width:1100px;margin:0 auto;padding:95px 24px 50px}.onboard-welcome h1{font-size:clamp(2rem,4vw,3.3rem);line-height:1.1;margin:30px 0 15px}.onboard-welcome>p:not(.section-kicker){font-size:1.08rem;line-height:1.6;max-width:420px;color:var(--theme-muted,#61766c)}.onboard-benefit{display:flex;align-items:center;gap:8px;color:#176b60;margin-top:22px;font-weight:700}.onboarding-top{position:fixed;top:20px;right:22px;z-index:30}.personal-panel{max-width:680px;width:100%}.personal-form{display:flex;flex-direction:column;gap:16px}.personal-form h2{font-size:1.4rem;margin:0 0 4px}.personal-form>label{display:flex;flex-direction:column;gap:8px;font-weight:700;font-size:.87rem}.personal-form input{width:100%;background:var(--theme-surface,#fff);color:var(--theme-ink,#172b2d);border:1px solid var(--theme-border,#dce9e4);padding:13px;border-radius:11px;font:inherit}.personal-form input:focus-visible{outline:3px solid #84d4c0;outline-offset:2px}.personal-form .btn{align-self:flex-start}.identity-summary{background:var(--theme-surface,#f5faf7);border:1px solid var(--theme-border,#dce9e4);border-radius:12px;padding:12px 15px}.identity-summary p{display:flex;align-items:center;flex-wrap:wrap;gap:7px;font-size:.79rem;line-height:1.6;margin:3px 0;overflow-wrap:anywhere}.identity-summary strong{font-weight:800}.profile-layout .page-heading{margin-bottom:20px}.profile-layout .panel{max-width:700px}.personal-form .form-help{line-height:1.5}.onboarding-layout .panel{background:var(--theme-surface,#fff)}html[data-theme=dark] .onboard-welcome>p:not(.section-kicker){color:#b9c9c7}html[data-theme=dark] .onboard-benefit{color:#9ee2ce}@media(max-width:760px){.onboarding-layout{grid-template-columns:1fr;padding:76px 17px 36px;gap:20px}.onboard-welcome h1{margin-top:15px}.onboarding-layout .personal-panel{max-width:none}.personal-form .btn{width:100%;justify-content:center}.personal-panel{padding:19px}}
+
+/* KDC V2.12: flexible phone field with an editable country prefix */
+.phone-field{display:grid;grid-template-columns:minmax(132px,42%) minmax(0,1fr);gap:9px;align-items:center;width:100%}.phone-field select,.phone-field input{min-width:0;width:100%;height:47px;background:var(--theme-surface,#fff);color:var(--theme-ink,#172b2d);border:1px solid var(--theme-border,#dce9e4);border-radius:11px;padding:10px;font:inherit}.phone-field select{font-size:.79rem}.phone-country-hint{grid-column:1/-1;color:var(--theme-muted,#61766c);font-size:.73rem;font-weight:400}.phone-field :is(input,select):focus-visible{outline:3px solid #84d4c0;outline-offset:2px}@media(max-width:380px){.phone-field{grid-template-columns:1fr}}
