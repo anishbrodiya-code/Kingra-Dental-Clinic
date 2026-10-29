@@ -1,0 +1,55 @@
+/* KDC mobile-first layout corrections — presentation only, no auth or data logic changes. */
+html,body,#root{min-width:0;max-width:100%}html{overflow-x:clip}body{overflow-x:clip}*,*::before,*::after{box-sizing:border-box}img,svg,video,iframe{max-width:100%}button,input,select,textarea{font:inherit}button,a{-webkit-tap-highlight-color:transparent}
+.workspace,.main-area,.content,.panel,.dashboard-grid,.appointment-layout,.patient-layout,.visit-grid,.hero-grid,.hero-visual,.hero-preview{min-width:0}
+.content{margin-inline:auto;width:100%}.panel,.stat,.auth-card{max-width:100%}h1,h2,h3,p{overflow-wrap:break-word}input,textarea,select{max-width:100%;min-width:0}
+@media(max-width:960px){.dashboard-grid,.appointment-layout,.patient-layout{grid-template-columns:minmax(0,1fr)!important}.hero-grid{gap:25px}.content{padding-inline:24px}}
+@media(max-width:760px){
+  html{scroll-padding-top:76px}
+  .public-nav{height:auto!important;min-height:68px;padding:10px 16px!important;gap:8px;max-width:100%;}
+  .public-nav>.brand{min-width:0;flex:0 1 auto}.public-utilities{display:flex;align-items:center;gap:6px;flex:0 0 auto;margin:0!important}
+  .public-nav .brand-logo-frame,.topbar .brand-logo-frame{width:36px!important;height:36px!important;flex-basis:36px!important}
+  .public-nav .brand-original-logo,.topbar .brand-original-logo{width:34px!important;height:34px!important}
+  .public-nav .brand strong,.topbar .brand strong{font-size:1.08rem!important}.public-nav .brand small,.topbar .brand small{font-size:.48rem!important}
+  .public-nav .public-links{position:absolute!important;top:calc(100% + 2px)!important;left:12px!important;right:12px!important;width:auto!important;display:none!important;flex-direction:column!important;align-items:stretch!important;gap:6px!important;padding:12px!important;background:var(--theme-surface,#fff)!important;box-shadow:0 16px 38px #173f3830;z-index:60}
+  .public-nav .public-links.is-open{display:flex!important}
+  .public-nav .public-links a{display:block!important;padding:12px;border-radius:9px;min-height:44px}.public-nav .public-links .btn{width:100%;min-height:44px}
+  .public-menu-toggle,.theme-toggle{flex-shrink:0;min-width:40px;min-height:40px;display:inline-flex;align-items:center;justify-content:center}
+  .wrap{width:100%;max-width:100%;padding-left:18px;padding-right:18px}
+  .hero-grid{display:grid!important;grid-template-columns:minmax(0,1fr)!important;padding-top:48px!important;padding-bottom:24px!important;gap:8px!important}
+  .hero h1{font-size:clamp(2.15rem,8.6vw,3.4rem)!important;line-height:1.11;letter-spacing:-.045em}.lead{font-size:1rem;line-height:1.65;max-width:54ch}
+  .hero-actions{display:flex;flex-wrap:wrap;gap:10px}.hero-actions .btn{min-height:46px;justify-content:center}
+  .hero-visual{width:100%;max-width:510px;justify-self:center;min-height:390px!important;padding:38px 8px 78px!important;isolation:isolate}
+  .hero-preview{width:min(100%,425px)!important;margin:auto;transform:none!important;padding:22px!important;position:relative;z-index:2}
+  .hero-visual::before{width:min(340px,90vw)!important}.hero-visual::after{width:min(280px,76vw)!important}
+  .hero-visual .visit-float{right:4px!important;bottom:10px!important;z-index:3;max-width:88%;padding:12px!important}
+  .section{padding-top:56px!important;padding-bottom:56px!important}.section h2{font-size:clamp(1.75rem,6.8vw,2.6rem);line-height:1.18}
+  .service-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important}.service-grid .interactive-service{min-width:0;min-height:190px;padding:18px!important}
+  .visit-grid{grid-template-columns:minmax(0,1fr)!important;gap:26px}.contact-card{width:100%}.footer{gap:18px;padding-block:26px}
+  .sidebar{display:none!important}.main-area{margin-left:0!important;width:100%!important;max-width:100%}
+  .topbar{height:66px!important;padding:0 16px!important;gap:8px;position:sticky;top:0;z-index:20}.topbar>.brand{display:flex!important;min-width:0}.top-user{gap:7px;min-width:0}.top-user>span:not(.avatar){display:none}.top-user .avatar{display:none}.mobile-signout{display:grid!important;place-items:center;min-width:40px;min-height:40px}
+  .content{width:100%!important;max-width:100%!important;padding:22px 16px calc(115px + env(safe-area-inset-bottom))!important}
+  .page-heading{display:flex;flex-wrap:wrap;gap:10px}.page-heading h1{font-size:clamp(1.55rem,6vw,2rem)!important}.page-heading>.btn{display:inline-flex!important;min-height:44px}
+  .dashboard-grid,.appointment-layout,.patient-layout{display:grid;grid-template-columns:minmax(0,1fr)!important;gap:16px!important}
+  .summary-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}.stat{min-width:0;padding:16px!important}.stat strong{font-size:1.65rem!important}.stat-top{font-size:.75rem}
+  .panel{min-width:0;padding:17px!important}.panel-head{display:flex;align-items:flex-start;flex-wrap:wrap;gap:12px}.quick-card{gap:14px;flex-wrap:wrap}
+  .appointment-list,.patient-list,.file-list{min-width:0}.appointment-row,.patient-item,.file-row{min-width:0;max-width:100%;gap:10px}.appointment-detail,.file-info{min-width:0;flex:1 1 150px}.appointment-actions{margin-left:0!important;flex-wrap:wrap;max-width:100%}.mini-actions{flex-wrap:wrap}
+  .slots{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:8px}.slot{min-width:0;min-height:44px;padding:10px 4px}
+  .field-row{grid-template-columns:minmax(0,1fr)!important;gap:12px}.field-row>*{min-width:0}.search-field{min-width:0}.search-field input{min-width:0}
+  .mobile-nav{display:flex!important;position:fixed;left:0;right:0;bottom:0;z-index:50;justify-content:space-around;align-items:stretch;gap:0;background:var(--theme-surface,#fff)!important;border-top:1px solid var(--theme-border,#dce9e4)!important;padding:7px 4px calc(7px + env(safe-area-inset-bottom))!important;box-shadow:0 -6px 26px #0826210c}
+  .mobile-nav button{display:flex!important;align-items:center;justify-content:center;flex-direction:column;gap:5px;flex:1 1 0;min-width:0;min-height:54px;padding:5px 1px!important;border-radius:9px;color:var(--theme-muted,#61766c);font-size:clamp(.52rem,1.9vw,.68rem)!important;line-height:1.18;text-align:center;white-space:normal}.mobile-nav button span{overflow-wrap:anywhere;max-width:100%}.mobile-nav button svg{flex-shrink:0}.mobile-nav button.selected{background:color-mix(in srgb,var(--theme-primary,#176b60) 10%,transparent);color:var(--theme-primary,#176b60)!important}
+  .auth-page{min-height:100dvh;padding:68px 14px 24px!important;align-items:flex-start}.auth-card{width:100%;max-width:480px;padding:24px 20px!important;margin:0 auto}.auth-card h1{font-size:clamp(1.55rem,6vw,2rem);line-height:1.2}.auth-back{top:16px;left:14px}.auth-methods{grid-template-columns:repeat(3,minmax(0,1fr))}.auth-methods .method{font-size:.8rem!important;padding:10px 4px}
+  .onboarding-layout{grid-template-columns:minmax(0,1fr)!important;padding:78px 16px 32px!important;gap:20px!important}.onboard-welcome h1{font-size:clamp(1.8rem,8vw,2.6rem)!important}.onboarding-layout .panel{padding:18px!important}
+  .document-overlay{padding:9px!important}.document-dialog{width:100%;height:min(92dvh,920px);border-radius:13px}.document-dialog header,.document-dialog footer{padding:12px!important;gap:8px;flex-wrap:wrap}.document-dialog header>*{min-width:0}.document-dialog footer .btn{max-width:100%}.document-preview{min-height:0}
+  .upload-form{padding:15px!important}
+}
+@media(max-width:430px){
+  .wrap{padding-inline:15px}.public-nav{padding-inline:12px!important}.hero-grid{padding-top:36px!important}.hero h1{font-size:clamp(2rem,9.5vw,2.7rem)!important}
+  .hero-actions{flex-direction:column!important}.hero-actions .btn{width:100%!important}.hero-visual{min-height:355px!important;padding:30px 2px 74px!important}.hero-preview{padding:17px!important}.hero-visual .visit-float{bottom:7px!important;max-width:91%;font-size:.75rem}
+  .service-grid{grid-template-columns:minmax(0,1fr)!important}.service-grid .interactive-service{min-height:160px;padding:18px!important}.service-detail-panel{padding:16px!important}
+  .content{padding-inline:13px!important}.panel{padding:15px!important}.summary-grid{gap:8px!important}.stat{padding:13px!important}.stat strong{font-size:1.5rem!important}
+  .appointment-row{flex-wrap:wrap}.appointment-actions{width:100%;padding-left:0}.date-tile{flex-shrink:0}
+  .auth-card{padding:20px 15px!important}.phone-field{grid-template-columns:minmax(0,1fr)!important}
+}
+@media(max-width:340px){.summary-grid{grid-template-columns:minmax(0,1fr)!important}.mobile-nav button{font-size:.5rem!important}.mobile-nav button svg{width:17px;height:17px}.public-nav .brand strong{font-size:.94rem!important}}
+@media(hover:none){.interactive-service:hover,.panel:hover,.stat:hover,.quick-card:hover{transform:none!important;box-shadow:none}.btn:active{transform:scale(.985)!important}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}.hero-visual::before,.hero-visual::after{animation:none!important}}
