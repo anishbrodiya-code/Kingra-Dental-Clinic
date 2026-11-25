@@ -1,0 +1,264 @@
+/* Layout and interaction rules for the public website and care portal. */
+:root {
+  --motion-time: 260ms;
+  --motion-ease: cubic-bezier(.22,1,.36,1);
+}
+
+html, html[data-theme="dark"], html[data-theme="dark"] body,
+html[data-theme="dark"] #root, html[data-theme="dark"] .workspace {
+  background: var(--ui-canvas);
+  color: var(--ui-text);
+}
+
+html[data-theme="dark"] .public-nav, html[data-theme="dark"] .public-links {
+  background: var(--ui-canvas) !important;
+}
+html .service-detail-panel, html[data-theme="dark"] .service-detail-panel {
+  background: var(--ui-primary-soft) !important;
+  border-color: var(--ui-border);
+  color: var(--ui-text);
+}
+html .service-detail-label, html[data-theme="dark"] .service-detail-label,
+html .service-expand, html[data-theme="dark"] .service-expand { color: var(--ui-primary) !important; }
+html .hero .preview-icon, html .leaf-dot, html .preview-indicator { background-color: var(--ui-primary-soft); }
+html .leaf-dot, html .preview-indicator, html .notification-dot { background-color: var(--ui-accent); }
+
+.portal-workspace .main-area { width: 100%; margin: 0; }
+.portal-workspace .portal-topbar {
+  display: flex;
+  height: auto;
+  min-height: 74px;
+  gap: 12px;
+  padding-inline: clamp(16px, 4vw, 48px);
+  justify-content: space-between;
+  background: var(--ui-surface) !important;
+  border-color: var(--ui-border) !important;
+  color: var(--ui-text);
+}
+.portal-workspace .portal-topbar > .brand { display: flex; }
+.portal-account {
+  max-width: 18ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.portal-signout {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  color: var(--ui-text);
+  border: 1px solid var(--ui-border);
+  border-radius: 50%;
+}
+
+.portal-nav {
+  --nav-inset: 5px;
+  --item-count: var(--desktop-item-count);
+  position: relative;
+  isolation: isolate;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(var(--item-count), minmax(0, 1fr));
+  width: min(calc(100% - 48px), 780px);
+  margin: 20px auto 0;
+  padding: var(--nav-inset);
+  border: 1px solid var(--ui-border);
+  border-radius: 999px;
+  background: var(--ui-surface);
+  box-shadow: var(--ui-shadow);
+}
+
+.portal-nav-pill {
+  position: absolute;
+  z-index: -1;
+  inset: var(--nav-inset) auto var(--nav-inset) var(--nav-inset);
+  width: calc((100% - 2 * var(--nav-inset)) / var(--item-count));
+  border: 1px solid var(--ui-border);
+  border-radius: inherit;
+  background: var(--ui-primary-soft);
+  transform: translateX(calc(var(--active-index) * 100%));
+  transition: transform var(--motion-time) var(--motion-ease);
+  pointer-events: none;
+}
+
+.portal-nav button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-width: 0;
+  min-height: 46px;
+  padding: 6px;
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+  color: var(--ui-muted);
+  text-align: center;
+  font-size: .82rem;
+  font-weight: 720;
+  line-height: 1.2;
+}
+.portal-nav button[aria-current="page"] { color: var(--ui-primary); }
+.portal-nav .notification-dot { position: absolute; top: 8px; right: 9px; }
+.portal-nav-short, .portal-topbar .portal-profile { display: none; }
+
+.portal-workspace .content { max-width: 1220px; }
+.portal-workspace .summary-grid { grid-template-columns: 1.35fr 1fr 1fr; }
+.portal-workspace .stat:first-child { background: var(--ui-primary-soft) !important; }
+.portal-workspace .dashboard-grid { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); }
+html .panel, html .stat, html .quick-card, html .service-card, html .contact-card {
+  border-radius: 22px !important;
+  box-shadow: var(--ui-shadow) !important;
+}
+html[data-theme="dark"] .panel, html[data-theme="dark"] .stat,
+html[data-theme="dark"] .quick-card, html[data-theme="dark"] .service-card,
+html[data-theme="dark"] .contact-card { box-shadow: var(--ui-shadow) !important; }
+
+@media (min-width: 961px) {
+  .service-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .service-grid > :is(:first-child, :last-child) { grid-column: span 2; }
+}
+
+.google-signin { margin-top: 24px; }
+.google-signin .form-help { margin-top: 10px; }
+.google-mark {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #fff;
+  color: #3c4043;
+  font-weight: 800;
+}
+
+html :is(button, a, input, textarea, select, .panel, .quick-card, .stat, .service-card) {
+  transition-duration: 180ms !important;
+  transition-timing-function: ease-out !important;
+}
+html :is(button, a):active:not(:disabled) { scale: .985; }
+html .portal-nav button:active { transform: none !important; }
+
+@media (min-width: 961px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  html .service-grid .interactive-service:hover,
+  html .portal-nav button:hover,
+  html .btn:hover:not(:disabled) { transform: translateY(-3px) !important; }
+  html .service-grid .interactive-service:hover { box-shadow: 0 10px 26px rgba(18,48,54,.11) !important; }
+}
+
+@media (max-width: 960px), (hover: none), (pointer: coarse) {
+  html .service-grid .interactive-service:hover, html .portal-workspace .stat:hover,
+  html .btn:hover:not(:disabled), html .theme-toggle:hover,
+  html .file-row:hover, html .patient-item:hover { transform: none !important; }
+}
+
+@media (max-width: 760px) {
+  html { scroll-padding-bottom: calc(88px + env(safe-area-inset-bottom)); }
+  .portal-nav {
+    position: fixed;
+    z-index: 40;
+    left: 50%;
+    bottom: calc(12px + env(safe-area-inset-bottom));
+    transform: translateX(-50%);
+    width: min(calc(100% - 24px), 460px);
+    margin: 0;
+    box-shadow: 0 8px 30px rgba(18,48,54,.16);
+  }
+  .portal-nav { --item-count: 4; }
+  .portal-nav[data-profile-open] .portal-nav-pill { opacity: 0; }
+  .portal-nav button { flex-direction: column; gap: 4px; min-height: 52px; font-size: .69rem; }
+  .portal-nav button.desktop-portal-item { display: none; }
+  .portal-topbar .portal-profile { display: grid; }
+  .portal-topbar .portal-profile[aria-current="page"] {
+    color: var(--ui-primary);
+    background: var(--ui-primary-soft);
+  }
+  .portal-nav-full { display: none; }
+  .portal-nav button[aria-current="page"] .portal-nav-short { display: inline; }
+  .portal-workspace .stat:last-child { grid-column: span 2; }
+}
+@media (max-width: 340px) {
+  .portal-workspace .stat:last-child { grid-column: auto; }
+  .portal-nav button { font-size: .625rem; }
+  .portal-topbar .theme-toggle span { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html :is(button, a, input, textarea, select, .panel, .quick-card, .stat, .service-card, .portal-nav-pill) {
+    transition: none !important;
+  }
+  html :is(button, a):active { scale: 1; }
+}
+
+.native-preview:not([open]) { display: none; }
+.native-preview { padding: 0; margin: auto; max-width: calc(100% - 24px); max-height: 92dvh; }
+.native-preview::backdrop { background: rgba(16,28,34,.80); }
+
+html .hero-preview, html[data-theme="dark"] .hero-preview {
+  background: var(--ui-surface) !important;
+  border-color: var(--ui-border) !important;
+  box-shadow: var(--ui-shadow) !important;
+}
+html .auth-methods .method:hover:not(:disabled), html .slot:not(.selected):hover {
+  background: var(--ui-primary-soft) !important;
+  color: var(--ui-text) !important;
+}
+html .slot.selected {
+  background: var(--ui-primary) !important;
+  border-color: var(--ui-primary) !important;
+}
+html :is(button, a) {
+  transition-property: color, background-color, border-color, box-shadow, opacity, transform, scale !important;
+}
+html .service-card:focus-visible { transform: none !important; }
+@media (prefers-reduced-motion: reduce) {
+  html :is(.btn, .theme-toggle, .interactive-service, .file-row, .patient-item, .stat):hover {
+    transform: none !important;
+  }
+}
+
+
+/* Purpose-sized panels keep the actionable area first in reading order. */
+.portal-workspace :is(.appointment-layout, .patient-layout, .records-layout, .profile-layout) {
+  align-items: start;
+  gap: 16px;
+}
+.portal-workspace .records-layout, .portal-workspace .profile-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+.portal-workspace .profile-layout > .page-heading {
+  grid-column: 1 / -1;
+  margin-bottom: 4px;
+}
+.portal-workspace .profile-layout .panel { width: 100%; max-width: none; }
+.portal-workspace .profile-layout .identity-summary { margin-top: 0; }
+.portal-workspace .records-layout > .panel > .upload-form {
+  margin: 0;
+  background: transparent !important;
+  border: 0;
+  padding: 0 !important;
+}
+.portal-workspace .identity-summary strong { overflow-wrap: anywhere; }
+.portal-workspace .account-security h2 { font-size: 1.12rem; }
+.portal-workspace .account-security p { color: var(--ui-muted); }
+.portal-workspace .patient-item { min-height: 44px; }
+@media (min-width: 961px) {
+  .portal-workspace .appointment-layout { grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); }
+  .portal-workspace .patient-layout { grid-template-columns: minmax(0, .85fr) minmax(0, 1.55fr); }
+  .portal-workspace .records-layout { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); }
+  .portal-workspace .profile-layout { grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); }
+}
+
+html .hero, html[data-theme="dark"] .hero { background: var(--ui-hero) !important; }
+.hero .hero-visual .visit-float {
+  z-index: 3;
+  right: 12px;
+  bottom: 14px;
+  background: var(--ui-surface);
+  color: var(--ui-text);
+  border: 1px solid var(--ui-border);
+  pointer-events: none;
+}
+.hero .hero-visual .visit-float small { color: var(--ui-muted); }

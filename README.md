@@ -1,3 +1,9 @@
+> V3 guides: [Changes](CHANGES.md) · [Local setup](LOCAL-SETUP.md) · [Deployment](DEPLOYMENT.md) · [Verification](VERIFICATION.md).
+
+> For this release, start with [LOCAL-SETUP.md](LOCAL-SETUP.md).
+
+> **Start here:** Read [`REFINEMENT-AND-SECURITY-STATUS.md`](./REFINEMENT-AND-SECURITY-STATUS.md) for the UI changes, remaining security limitations and safe merge instructions.
+
 # Kingra Dental Care — V2
 
 A **portfolio/demo** dental care web application with simple patient and doctor views, Supabase authentication, appointment approval, files, updates, and directions. Designed for **synthetic test data only**. NOT certified for live medical use.
@@ -114,7 +120,7 @@ If using the existing repository, instead create a branch first, commit the cont
 ## V2.1 visual refresh
 This package replaces the oversized decorative dental logo in the dashboard with a compact Kingra wordmark and uses a cleaner blue-teal clinical interface. Original logo remains in `public/logo.png` for optional brand use. The added `src/redesign.css` overrides visual styles without changing booking, authentication, database, or file workflows.
 
-## V2.3 — Unified doctor and patient portal sign-in
+## V2.3 — Historical sign-in instructions (superseded by V3 local setup)
 The same sign-in screen is available to **patients and doctors**. New accounts always have the patient role. Never offer a public doctor-role selector: clinic administrators grant that permission privately.
 
 ### Set up sign-in providers
@@ -141,7 +147,7 @@ create trigger profile_role_protection before update on public.profiles for each
 ### Safety
 Use only fake/sample records. The existing V2 database policies need additional independent security review before real patient data or broader multi-clinic deployment. Test access from two separate accounts and browsers.
 
-## V2.4 Portal authentication and color system
+## V2.4 — Historical portal authentication and color system
 
 Both patients and doctors use **the same login screen**: Google OAuth, email OTP/magic link, or phone SMS OTP. New accounts are patients by default. Doctor accounts must be approved by an administrator and assigned the doctor role server-side; **do not allow users to choose their own doctor role**. Do not grant clinical access based on an email domain.
 

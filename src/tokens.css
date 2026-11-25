@@ -1,0 +1,25 @@
+/* Original KDC brand colors and semantic theme aliases. */
+:root{
+  --ui-canvas:#F5F7F8;--ui-surface:#FFFFFF;--ui-surface-soft:#EDF3F3;
+  --ui-text:#192F39;--ui-muted:#526671;--ui-border:#D5E0E2;
+  --ui-primary:#175E62;--ui-primary-hover:#10494D;--ui-primary-soft:#E5F2F0;
+  --ui-accent:#C59455;--ui-focus:#A37637;--ui-shadow:0 8px 32px rgba(18,48,54,.065);
+  --ui-hero:radial-gradient(ellipse at 13% 6%,#fffde3 0%,transparent 46%),radial-gradient(ellipse at 87% 26%,#b7e8e1a6 0%,transparent 46%),linear-gradient(117deg,#f9fbf6,#e9f7f2 64%,#f9f9d7);
+  --ui-ink:var(--ui-text);
+  --theme-bg:var(--ui-canvas);--theme-surface:var(--ui-surface);
+  --theme-ink:var(--ui-text);--theme-muted:var(--ui-muted);
+  --theme-border:var(--ui-border);--theme-soft:var(--ui-surface-soft);
+  --theme-primary:var(--ui-primary);
+}
+html[data-theme="dark"]{
+  --ui-canvas:#101C22;--ui-surface:#192A31;--ui-surface-soft:#22363C;
+  --ui-hero:linear-gradient(120deg,#152B30,#1B3336 60%,#28383B);
+  --ui-text:#EFF6F4;--ui-muted:#C2D1D1;--ui-border:#3C565D;
+  --ui-primary:#8AD6C7;--ui-primary-hover:#A3E3D7;--ui-primary-soft:#234441;
+  --ui-accent:#DBB67B;--ui-focus:#E9C487;--ui-shadow:0 10px 28px rgba(0,0,0,.13);
+  --ui-ink:var(--ui-text);
+  --theme-bg:var(--ui-canvas);--theme-surface:var(--ui-surface);
+  --theme-ink:var(--ui-text);--theme-muted:var(--ui-muted);
+  --theme-border:var(--ui-border);--theme-soft:var(--ui-surface-soft);
+  --theme-primary:var(--ui-primary);
+}

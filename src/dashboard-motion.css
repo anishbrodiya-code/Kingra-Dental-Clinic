@@ -1,0 +1,67 @@
+/* KDC — restored original hero wayfinding ornament.
+   Exception to the no-idle-motion rule: one subtle, background-only orbit.
+   Does not move interactive elements or create nested cards. */
+.hero .hero-visual {
+  position: relative;
+  isolation: isolate;
+  overflow: visible;
+  min-height: 470px;
+  padding: 48px 20px 58px;
+}
+.hero .hero-visual .hero-preview {
+  position: relative;
+  z-index: 2;
+}
+.hero .hero-visual::before,
+.hero .hero-visual::after {
+  content: '';
+  display: block !important;
+  position: absolute;
+  left: 50%;
+  top: 49%;
+  aspect-ratio: 1;
+  border: 0 !important;
+  border-radius: 50%;
+  pointer-events: none;
+  box-shadow: none !important;
+  box-sizing: border-box;
+  transform: translate(-50%, -50%);
+}
+.hero .hero-visual::before {
+  z-index: 0;
+  width: min(460px, 97%);
+  opacity: .82;
+  background: conic-gradient(from 0deg, transparent 0deg, rgba(29,139,122,.06) 32deg, rgba(29,139,122,.58) 94deg, transparent 175deg, rgba(183,141,72,.4) 265deg, transparent 355deg) !important;
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1px));
+}
+.hero .hero-visual::after {
+  z-index: 0;
+  width: min(385px, 84%);
+  opacity: .75;
+  background: radial-gradient(circle, rgba(42, 157, 143, .105), rgba(172,194,96,.045) 49%, transparent 71%) !important;
+}
+@keyframes kdcDashboardOrbit {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  html .hero .hero-visual::before {
+    animation: kdcDashboardOrbit 45s linear infinite !important;
+  }
+}
+html[data-theme='dark'] .hero .hero-visual::before {
+  background: conic-gradient(from 0deg, transparent 0deg, rgba(102,226,197,.08) 35deg, rgba(102,226,197,.53) 96deg, transparent 175deg, rgba(215,189,102,.42) 265deg, transparent 355deg) !important;
+}
+html[data-theme='dark'] .hero .hero-visual::after {
+  background: radial-gradient(circle, rgba(51,183,152,.14), rgba(136,170,88,.06) 52%, transparent 72%) !important;
+}
+@media (max-width: 760px) {
+  .hero .hero-visual { min-height: 390px; padding: 30px 8px 46px; }
+  .hero .hero-visual::before { width: min(350px, 97%); }
+  .hero .hero-visual::after { width: min(290px, 82%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html .hero .hero-visual::before,
+  html .hero .hero-visual::after { animation: none !important; }
+}
