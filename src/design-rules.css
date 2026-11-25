@@ -1,0 +1,142 @@
+/* KDC Design Rules, 2026-11-14.
+   Single authoritative interaction/spacing layer, loaded last.
+   Preserve status badges; eliminate decorative chips and idle motion. */
+html { scroll-behavior: auto !important; }
+/* Idle movement is not appropriate for a care portal. */
+html *, html *::before, html *::after {
+  animation: none !important;
+  animation-delay: 0ms !important;
+}
+/* All interactions use predictable and brief feedback, not infinite motion. */
+button, a, .btn, .service-card, .nav-item, .method, .slot, .tab, .file-row,
+input, textarea, select, .icon-action, .theme-toggle {
+  transition: color 180ms ease-out, background-color 180ms ease-out,
+              border-color 180ms ease-out, box-shadow 180ms ease-out,
+              opacity 180ms ease-out, transform 180ms ease-out !important;
+  transition-delay: 0ms !important;
+}
+html [data-reveal], html.motion-ready [data-reveal],
+html.motion-ready [data-reveal]:not(.is-visible) {
+  opacity: 1 !important; transform: none !important; transition: none !important;
+}
+.hero-preview, .visit-float, .hero-visual::before, .hero-visual::after,
+.skeleton-brand, .skeleton-line, .skeleton-card, .spin {
+  animation: none !important;
+}
+/* Focus and keyboard controls */
+:where(button,a,input,select,textarea,[tabindex]):focus-visible {
+  outline: 3px solid var(--ui-focus) !important;
+  outline-offset: 3px;
+}
+:where(button,a):disabled { opacity: .6; cursor: not-allowed; }
+/* Consistent icon anatomy: Lucide inherits currentColor and a 1.75px stroke. */
+svg.lucide { stroke-width: 1.75px !important; flex-shrink: 0; }
+.service-icon svg, .preview-row svg, .feature-icon svg { width: 20px; height: 20px; }
+/* Remove useless decorative pills; retain real statuses (pending, confirmed etc). */
+.preview-tag { display: none !important; }
+/* App-level hierarchy */
+body { color: var(--ui-ink); background: var(--ui-canvas); }
+h1,h2,h3 { letter-spacing: -.035em; }
+p { line-height: 1.55; }
+.section, .content { padding-block: 36px; }
+.section.wrap { padding-block: 64px; }
+.section + .section { margin-top: 0; }
+.page-heading { gap: 16px; margin-bottom: 28px; }
+.page-heading h1 { margin-bottom: 4px; }
+.section-kicker { margin-bottom: 8px; }
+/* One surface per section. Nested rows remain flat with separators. */
+.panel, .stat, .service-card, .contact-card, .auth-card,
+.quick-card, .hero-preview, .document-dialog {
+  border: 1px solid var(--ui-border);
+  background: var(--ui-surface);
+  box-shadow: 0 2px 12px rgba(17,53,51,.035) !important;
+  border-radius: 16px;
+}
+.panel { padding: 24px; }
+.panel .appointment-row, .panel .notification, .panel .file-row {
+  background: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+.panel .appointment-row + .appointment-row,
+.panel .notification + .notification,
+.panel .file-row + .file-row { border-top: 1px solid var(--ui-border); }
+.preview-row + .preview-row { border-top: 1px solid var(--ui-border); }
+.preview-row { border-radius: 0 !important; padding-block: 10px; box-shadow: none !important; }
+.hero-preview { transform: none !important; }
+.service-grid { gap: 12px; margin-top: 26px; }
+.service-card { text-align: left; padding: 24px; }
+.service-icon { display: inline-flex; align-items: center; justify-content: center;
+  width: 42px; height: 42px; border-radius: 10px; margin-bottom: 12px; }
+.service-card h3 { margin: 8px 0 4px; }
+.service-card p { margin: 0; }
+.service-expand { margin-top: 12px; }
+.service-card:hover, .service-card:focus-visible,
+.btn:hover:not(:disabled), .nav-item:hover:not(:disabled) {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 5px 16px rgba(18,77,67,.1) !important;
+}
+:where(.btn,.nav-item,.service-card,.method,.slot):active:not(:disabled) {
+  transform: translateY(1px) scale(.995) !important;
+  box-shadow: none !important;
+}
+/* Content density: value is adjacent to label, list rows clustered, sections separated. */
+.stat-top { margin-bottom: 4px; }
+.stat strong { margin-top: 4px !important; }
+.summary-grid,.dashboard-grid { gap: 16px; }
+.panel-head { margin-bottom: 12px; }
+.appointment-row { padding-block: 12px !important; }
+.appointment-detail p { margin-top: 3px !important; }
+.appointment-actions { gap: 10px; }
+.form-help,.input-help { margin-top: 4px; }
+label { line-height: 1.4; }
+label input, label select, label textarea { margin-top: 4px !important; }
+.auth-card form, .booking-form, .personal-form { gap: 12px !important; }
+.field-row { gap: 12px; }
+/* Nested radius relationship: section 16px, 8px inner controls. */
+.panel :is(input,select,textarea,.date-tile,.slot,.mini-actions button,.file-symbol),
+.auth-card :is(input,select,textarea,.method),
+.hero-preview .preview-icon { border-radius: 8px !important; }
+.btn { border-radius: 9px !important; min-height: 42px; }
+/* Strong selected affordance, not a faint colour change. */
+.nav-item.active, .method.active, .slot.selected {
+  background: #14685d !important; color: #fff !important;
+  border-color: #14685d !important;
+}
+.nav-item.active svg, .method.active svg, .slot.selected svg { color: #fff !important; }
+.nav-item:not(.active):hover, .method:not(.active):hover, .slot:not(.selected):hover {
+  background: #e7f3ee !important; color: #144b43 !important;
+}
+.pill { border: 1px solid transparent; border-radius: 7px !important; }
+.pill.pending { color: #7e5308; background: #fff3d2; }
+.pill.confirmed,.pill.completed { color: #155c42; background: #dff3e8; }
+.pill.declined,.pill.cancelled { color: #8a3131; background: #fce8e8; }
+/* Dark mode, with explicit selected foreground. */
+html[data-theme="dark"] .nav-item.active,
+html[data-theme="dark"] .method.active,
+html[data-theme="dark"] .slot.selected {
+  background: #a5ddca !important; color: #102e28 !important;
+  border-color: #a5ddca !important;
+}
+html[data-theme="dark"] .nav-item.active svg,
+html[data-theme="dark"] .method.active svg { color: #102e28 !important; }
+html[data-theme="dark"] .nav-item:not(.active):hover,
+html[data-theme="dark"] .method:not(.active):hover,
+html[data-theme="dark"] .slot:not(.selected):hover {
+  background: #284941 !important; color: #eef9f4 !important;
+}
+html[data-theme="dark"] .panel .appointment-row + .appointment-row,
+html[data-theme="dark"] .panel .notification + .notification,
+html[data-theme="dark"] .panel .file-row + .file-row {
+  border-top-color: #405650 !important;
+}
+@media(max-width:760px){
+  .section.wrap { padding-block: 46px; }
+  .content { padding: 24px 16px; }
+  .panel { padding: 18px; }
+  .service-card { padding: 18px; }
+  .service-grid { gap: 10px; }
+}
+@media(prefers-reduced-motion:reduce){
+  html *,html *::before,html *::after { transition-duration: 0ms !important; animation: none !important; }
+}
